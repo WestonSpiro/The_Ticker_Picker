@@ -1,0 +1,99 @@
+#!/usr/bin/env python3
+
+#The_Ticker_Picker by Weston Spiro
+
+import yfinance as yf
+from datetime import datetime
+def the_ticker_picker():
+    ticker = input("Please enter ticker: ")
+    stock = yf.Ticker(ticker)
+    close = stock.info['previousClose']
+    print("Previous close: " + str(close))
+    open = stock.info ['open']
+    print("Previous open: " + str(open))
+    daily_diff = close - open
+    print("Daily differential: " + str((daily_diff)*10))
+    target_high_price = stock.info['targetHighPrice']
+    print("Target high price: " + str(target_high_price))
+    target_low_price = stock.info['targetLowPrice']
+    print("Target low price: " + str(target_low_price))
+    target_price_diff = target_high_price - target_low_price
+    print("Target price differential: " + str(target_price_diff))
+    rec_mean = stock.info['recommendationMean']
+    print("Current recommendation mean: " + str(rec_mean))
+    rec_key = stock.info['recommendationKey']
+    print("Current recommendation: " + rec_key)
+    fifty = stock.info['fiftyDayAverage']
+    print("Fifty day average: " + str(fifty))
+    two_hundred = stock.info['twoHundredDayAverage']
+    print("Two hundred day average: " + str(two_hundred))
+    fifty_two_low = stock.info['fiftyTwoWeekLow']
+    print("Fifty two week low: " + str(fifty_two_low))
+    fifty_two_high = stock.info['fiftyTwoWeekHigh']
+    print("Fifty two week high: " + str(fifty_two_high))
+    fifty_two_diff = fifty_two_high - fifty_two_low
+    print("Fifty two week differential: " + str(fifty_two_diff))
+    try:
+        div_rate = stock.info['dividendRate']
+    except BaseException:
+        print("No Dividend Data")
+    else:
+        print("Dividend rate: " + str(div_rate))
+    try:
+        div_yield = stock.info['dividendYield']
+    except BaseException:
+        print("No Dividend Data")
+    else:
+        print("Dividend yield: " + str(div_yield))
+    try:
+        quar_div_pay = (close * div_yield)/4
+    except BaseException:
+        print("No Dividend Data")
+    else:
+        print("Quartely Dividend Payout: " + str(quar_div_pay))
+    try:
+        ex_div = stock.info['exDividendDate']
+    except BaseException:
+        print("No Dividend Data")
+    try:
+        con_ex_div = datetime.fromtimestamp(ex_div)
+    except BaseException:
+        print("No Dividend Data")
+    else:
+        print("Ex Dividend Date: " + str(con_ex_div))
+    try:
+        five_yr_div_yield = stock.info['fiveYearAvgDividendYield']
+    except BaseException:
+        print("No Dividend Data")
+    else:
+        print("Five year average dividend yield: " + str(five_yr_div_yield))
+    try:
+        trail_ann_div_rate = stock.info['trailingAnnualDividendRate']
+    except BaseException:
+        print("No Dividend Data")
+    else:
+        print("Trailing annual dividend rate: " + str(trail_ann_div_rate))
+    try:
+        trail_ann_div_yield = stock.info['trailingAnnualDividendYield']
+    except BaseException:
+        print("No Dividend Data")
+    else:
+        print("Trailing annual dividend yield: " + str(trail_ann_div_yield))
+    try:
+        last_div_value = stock.info['lastDividendValue']
+    except BaseException:
+        print("No Dividend Data")
+    else:
+        print("Last dividend value: " + str(last_div_value))
+    try:
+        last_div_date = stock.info['lastDividendDate']
+    except BaseException:
+        print("No Dividend Data")
+    else:
+        print("Last dividend date: "+ str(datetime.fromtimestamp(stock.info['lastDividendDate'])))
+    book_value = stock.info['bookValue']
+    print("Book Value: " + str(book_value))
+    price_to_book = close / book_value
+    print("Price to book:" + str(price_to_book))
+
+the_ticker_picker()
